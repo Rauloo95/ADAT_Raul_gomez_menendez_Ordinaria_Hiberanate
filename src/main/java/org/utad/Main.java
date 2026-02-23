@@ -19,7 +19,7 @@ public class Main {
         List<Productos> listaProductos = importer.leerCSV("productossin.csv");
 
         //lectura de comprobacion del csv por consola
-        for(Productos productos: listaProductos) {
+        for (Productos productos : listaProductos) {
             System.out.println(productos);
         }
 
@@ -27,11 +27,11 @@ public class Main {
         //variable de transaction global
         Transaction ts = null;
         //insertar todos en la base de datos
-        try(Session sesion = DataProvider.getFactory().openSession()){
+        try (Session sesion = DataProvider.getFactory().openSession()) {
             ts = sesion.beginTransaction();
             System.out.println("Productos a meter ");
             //con for los vamos metiendo con persist
-            for(Productos venta : listaProductos){
+            for (Productos venta : listaProductos) {
                 sesion.persist(venta);
                 System.out.println("Producto ingresado:  " + venta.getNombre());
             }
@@ -39,54 +39,49 @@ public class Main {
             ts.commit();
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
 
 
         //buscar por stock minimo
-        try(Session sesion = DataProvider.getFactory().openSession()){
-            Query<Productos> query = sesion.createQuery("FROM Productos where Stock> :minStock",Productos.class);
+        try (Session sesion = DataProvider.getFactory().openSession()) {
+            Query<Productos> query = sesion.createQuery("FROM Productos where Stock> :minStock", Productos.class);
             //pasamos parametro de por ejemplo 5
             query.setParameter("minStock", 5);
             List<Productos> productos = query.getResultList();
             //si la list no esta vacia
-            if(!listaProductos.isEmpty()){
+            if (!listaProductos.isEmpty()) {
                 System.out.println("Listado de Productos: ");
-                for(Productos producto: productos){
-                    System.out.println("Producto: " + producto.getNombre() +" Stock: "+ producto.getStock());
+                for (Productos producto : productos) {
+                    System.out.println("Producto: " + producto.getNombre() + " Stock: " + producto.getStock());
                 }
-                }else{
+            } else {
                 System.out.println("No hay productos encontrados ");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
 //        //lista de productos con precio comprendida entre:
-        try(Session sesion = DataProvider.getFactory().openSession()){
-            Query<Productos> query = sesion.createQuery("FROM Productos where Stock BETWEEN :valor1 and :valor2",Productos.class);
+        try (Session sesion = DataProvider.getFactory().openSession()) {
+            Query<Productos> query = sesion.createQuery("FROM Productos where Stock BETWEEN :valor1 and :valor2", Productos.class);
             query.setParameter("valor1", 5);
             query.setParameter("valor2", 20);
             List<Productos> productos = query.getResultList();
-            if(!listaProductos.isEmpty()){
+            if (!listaProductos.isEmpty()) {
                 System.out.println("Listado de Productos: ");
-                for(Productos producto: productos){
+                for (Productos producto : productos) {
                     System.out.println("Producto: " + producto.getNombre() + " Precio: " + producto.getPrecio());
                 }
-            }else{
+            } else {
                 System.out.println("No hay productos encontrados ");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
 
 
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text

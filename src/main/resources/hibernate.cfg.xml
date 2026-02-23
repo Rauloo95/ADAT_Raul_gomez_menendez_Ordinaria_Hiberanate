@@ -18,9 +18,6 @@
         <mapping class="org.utad.Model.Productos"/>
 
 
-
-
-
         <!-- <mapping class="com.tuempresa.modelo.Producto"/> -->
 
     </session-factory>

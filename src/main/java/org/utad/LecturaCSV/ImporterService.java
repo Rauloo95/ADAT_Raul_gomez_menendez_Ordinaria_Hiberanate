@@ -8,14 +8,14 @@ import java.util.List;
 
 public class ImporterService {
 
-    public List<Productos> leerCSV(String fileName){
+    public List<Productos> leerCSV(String fileName) {
 
         //creamos nueva lista
         List<Productos> listProductos = new ArrayList<>();
 
         //el input stream con utf8 para los acentos
 
-        try{
+        try {
             //configramos buffered reader
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String linea;
@@ -27,7 +27,7 @@ public class ImporterService {
             //bucle while para leer
             while ((linea = br.readLine()) != null) {
                 linea = linea.trim();
-                if(linea.isEmpty()) continue;
+                if (linea.isEmpty()) continue;
                 //los separamos por las comas del csv
                 String[] datos = linea.split(";");
                 String nombre = datos[0];
@@ -36,7 +36,7 @@ public class ImporterService {
                 String categoria = datos[3].trim();
 
                 //creamos el objeto
-                Productos productos =  new Productos();
+                Productos productos = new Productos();
                 //se lo asignamos
                 productos.setNombre(nombre);
                 productos.setPrecio(precio);
